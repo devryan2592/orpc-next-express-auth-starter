@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch ./src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@orpc/openapi": "^1.9.3",
+    "@orpc/server": "^1.9.3",
+    "@orpc/zod": "^1.9.3",
+    "@workspace/auth": "workspace:*",
+    "@workspace/db": "workspace:*",
+    "@workspace/orpc-contracts": "workspace:*",
+    "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.1",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
+}
