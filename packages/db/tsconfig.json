@@ -1,19 +1,11 @@
 {
+  "extends": "@workspace/typescript-config/internal.json",
   "compilerOptions": {
-    "target": "es2020",
-    "module": "esnext",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
-    "baseUrl": ".",
     "paths": {
-      "@workspace/db/*": ["./src/*"]
-    },
-    "moduleResolution": "node"
+      "@workspace/db/*": ["./src/*"],
+      "@workspace/*": ["../*/src", "../*/src/index"]
+    }
   },
-  "include": ["."],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@workspace/ui"],
+  output: "standalone",
+  transpilePackages: ["@workspace/ui", "@workspace/orpc-client"],
 }
 
 export default nextConfig

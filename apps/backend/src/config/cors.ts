@@ -2,12 +2,19 @@
  * Shared CORS configuration for both RPC and OpenAPI handlers
  * This eliminates duplication and provides a single source of truth for CORS settings
  */
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const envOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+console.log("CORS_ORIGIN:", envOrigins);
+
 export const corsConfig = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://localhost:4000",
-  ],
+  origin: envOrigins,
   credentials: true,
   allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization", "Cookie"],

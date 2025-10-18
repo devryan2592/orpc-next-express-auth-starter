@@ -1,18 +1,12 @@
 {
+  "extends": "@workspace/typescript-config/internal.json",
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
-    "baseUrl": ".", 
     "paths": {
-      "@workspace/auth/*": ["./src/*"]
+      "@workspace/auth/*": ["./src/*"],
+      "@workspace/db": ["../db/src/index"],
+      "@workspace/*": ["../*/src", "../*/src/index"]
     }
   },
-  "include": ["."],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,11 +1,14 @@
 {
-  "extends": "@workspace/typescript-config/react-library.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@workspace/typescript-config/internal.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@workspace/orpc-client/*": ["./src/*"]
+      "@workspace/orpc-client/*": ["./src/*"],
+      "@workspace/*": ["../../*/src", "../../*/src/index"]
     }
   },
-  "include": ["."],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Portfolio!</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        .success-badge {
+            background-color: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .cta-button:hover {
+            background-color: #1d4ed8;
+        }
+        .features-list {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        .features-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .features-list li {
+            margin-bottom: 8px;
+            color: #374151;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        .social-links a {
+            color: #2563eb;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Portfolio</div>
+            <div class="success-badge">✓ Email Verified</div>
+            <h1 class="title">Welcome to Portfolio!</h1>
+            <p class="subtitle">Your account is now active and ready to use.</p>
+        </div>
+        
+        <div class="content">
+            <p>Hi <%= user.name %>,</p>
+            <p>🎉 Congratulations! Your email address has been successfully verified and your account is now fully activated.</p>
+            
+            <p>You now have access to all our features and can start building your amazing portfolio:</p>
+            
+            <div class="features-list">
+                <ul>
+                    <li>Create and customize your professional portfolio</li>
+                    <li>Showcase your projects and achievements</li>
+                    <li>Connect with other professionals</li>
+                    <li>Access premium templates and tools</li>
+                    <li>Get insights and analytics on your portfolio performance</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="<%= dashboardUrl || '#' %>" class="cta-button">Get Started Now</a>
+            </div>
+            
+            <p>Need help getting started? Check out our <a href="<%= helpUrl || '#' %>" style="color: #2563eb;">getting started guide</a> or reach out to our support team.</p>
+            
+            <p>We're excited to see what you'll create!</p>
+            
+            <p>Best regards,<br>The Portfolio Team</p>
+        </div>
+        
+        <div class="footer">
+            <div class="social-links">
+                <a href="#">Follow us on Twitter</a>
+                <a href="#">Join our Community</a>
+                <a href="#">Help Center</a>
+            </div>
+            <p>This email was sent to <%= user.email %>.</p>
+            <p>&copy; 2024 Portfolio. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

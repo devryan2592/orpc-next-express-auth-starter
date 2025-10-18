@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import cors from "cors";
 
 import { auth, toNodeHandler } from "@workspace/auth";
 
@@ -10,8 +11,14 @@ import { CORSPlugin } from "@orpc/server/plugins";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
 import { ZodToJsonSchemaConverter } from "@orpc/zod";
 import { corsConfig } from "@/config/cors";
+import dotenv from "dotenv";
+
+// Load environment variables first
+dotenv.config();
 
 const app: Express = express();
+
+app.use(cors(corsConfig));
 
 // Better Auth Routes
 app.use("/api/v1/auth", toNodeHandler(auth));
