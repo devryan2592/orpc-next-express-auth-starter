@@ -2,6 +2,7 @@
 
 import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -67,13 +68,15 @@ const LoginForm: FC<LoginFormProps> = ({ children }) => {
       const response = await authClient.signIn.email(data);
 
       if (response.error) {
+        toast.error(response.error.message || "Invalid email or password");
         setError("root.apiError", {
           message: response.error.message || "Invalid email or password",
         });
+      } else {
+        toast.success("Successfully signed in! Welcome back.");
       }
-
-      //   Redirection with toast (implemnt later)
     } catch (error) {
+      toast.error("An error occurred. Please try again.");
       setError("root.apiError", {
         message: "An error occurred. Please try again.",
       });
@@ -142,8 +145,13 @@ const LoginForm: FC<LoginFormProps> = ({ children }) => {
                 </FormItem>
               )}
             />
-            <AppButton type="submit" buttonWidth="full" disabled={isSubmitting}>
-              {isSubmitting ? "Signing in..." : "Sign In"}
+            <AppButton 
+              type="submit" 
+              buttonWidth="full" 
+              loading={isSubmitting}
+              loadingText="Signing in..."
+            >
+              Sign In
             </AppButton>
           </form>
         </Form>

@@ -2,6 +2,7 @@
 
 import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -80,13 +81,15 @@ const RegisterForm: FC<RegisterFormProps> = ({ children }) => {
       });
 
       if (response.error) {
+        toast.error(response.error.message || "Registration failed");
         setError("root.apiError", {
           message: response.error.message || "Registration failed",
         });
+      } else {
+        toast.success("Account created successfully! Please check your email to verify your account.");
       }
-
-      //   Redirection with toast (implement later)
     } catch (error) {
+      toast.error("An error occurred. Please try again.");
       setError("root.apiError", {
         message: "An error occurred. Please try again.",
       });
@@ -225,10 +228,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ children }) => {
             />
             <AppButton
               type="submit"
-              className="w-full "
-              disabled={isSubmitting}
+              buttonWidth="full"
+              loading={isSubmitting}
+              loadingText="Creating account..."
             >
-              {isSubmitting ? "Creating account..." : "Sign Up"}
+              Sign Up
             </AppButton>
           </form>
         </Form>

@@ -26,40 +26,57 @@ import {
 import { authClient } from "@/lib/auth-client";
 import AppButton from "@/components/app-ui/button";
 
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-});
+const formSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, {
+        message: "Password must be at least 8 characters.",
+      })
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+        message:
+          "Password must contain at least one uppercase letter, one lowercase letter, and one number.",
+      }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-const ResetPasswordRequestForm = () => {
+interface UpdatePasswordFormProps {
+  token: string;
+}
+
+const UpdatePasswordForm = ({ token }: UpdatePasswordFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const { error } = await authClient.requestPasswordReset({
-        email: values.email,
-        redirectTo: `${window.location.origin}/auth/reset-password`,
+      const { error } = await authClient.resetPassword({
+        newPassword: values.password,
+        token,
       });
 
       if (error) {
         toast.error(
-          error.message || "Failed to send reset link. Please try again."
+          error.message || "Failed to update password. Please try again."
         );
         return;
       }
 
       toast.success(
-        "Password reset link sent! Check your email for instructions."
+        "Password updated successfully! You can now sign in with your new password."
       );
       form.reset();
     } catch (error) {
-      console.error("Password reset request error:", error);
+      console.error("Password update error:", error);
       toast.error("An unexpected error occurred. Please try again.");
     }
   }
@@ -67,9 +84,9 @@ const ResetPasswordRequestForm = () => {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
+        <CardTitle className="text-2xl font-bold">Update Password</CardTitle>
         <CardDescription>
-          Enter your email address and we'll send you a link to reset your password
+          Enter your new password below to complete the update process
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -77,14 +94,32 @@ const ResetPasswordRequestForm = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="email"
+              name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your email address"
-                      type="email"
+                      placeholder="Enter your new password"
+                      type="password"
+                      disabled={form.formState.isSubmitting}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Confirm your new password"
+                      type="password"
                       disabled={form.formState.isSubmitting}
                       {...field}
                     />
@@ -97,9 +132,9 @@ const ResetPasswordRequestForm = () => {
               type="submit"
               buttonWidth="full"
               loading={form.formState.isSubmitting}
-              loadingText="Sending..."
+              loadingText="Updating..."
             >
-              Send Reset Link
+              Update Password
             </AppButton>
           </form>
         </Form>
@@ -119,4 +154,4 @@ const ResetPasswordRequestForm = () => {
   );
 };
 
-export default ResetPasswordRequestForm;
+export default UpdatePasswordForm;

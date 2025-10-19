@@ -3,6 +3,7 @@ import {
   Button as UIButton,
   buttonVariants,
 } from "@workspace/ui/components/button";
+import { Spinner } from "@workspace/ui/components/spinner";
 import { cn } from "@workspace/ui/lib/utils";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
@@ -16,6 +17,8 @@ interface AppButtonProps
   iconPosition?: "left" | "right" | "start" | "end";
   buttonSize?: "big" | "medium" | "small";
   buttonWidth?: "full" | "inherit";
+  loading?: boolean;
+  loadingText?: string;
   asChild?: boolean;
 }
 
@@ -25,6 +28,9 @@ const AppButton: FC<AppButtonProps> = ({
   iconPosition = "left",
   buttonSize = "medium",
   buttonWidth = "inherit",
+  loading = false,
+  loadingText,
+  disabled,
   className,
   ...props
 }) => {
@@ -52,20 +58,37 @@ const AppButton: FC<AppButtonProps> = ({
   // Width classes
   const widthClass = buttonWidth === "full" ? "w-full" : "";
 
+  // Determine if button should be disabled (loading or explicitly disabled)
+  const isDisabled = loading || disabled;
+
+  // Determine what content to show
+  const buttonContent = loading && loadingText ? loadingText : children;
+
   return (
     <UIButton
       size={getSizeVariant(buttonSize)}
+      disabled={isDisabled}
       className={cn(
         customSizeClass,
         widthClass,
         "flex items-center justify-center gap-2 cursor-pointer",
+        loading && "cursor-not-allowed",
         className
       )}
       {...props}
     >
-      {Icon && isIconLeft && <Icon className="shrink-0" />}
-      {children}
-      {Icon && isIconRight && <Icon className="shrink-0" />}
+      {loading ? (
+        <>
+          <Spinner className="size-4" />
+          {buttonContent}
+        </>
+      ) : (
+        <>
+          {Icon && isIconLeft && <Icon className="shrink-0" />}
+          {buttonContent}
+          {Icon && isIconRight && <Icon className="shrink-0" />}
+        </>
+      )}
     </UIButton>
   );
 };
