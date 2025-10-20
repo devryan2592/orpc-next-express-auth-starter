@@ -1,4 +1,4 @@
-import { createAuthClient } from "better-auth/client";
+import { createAuthClient } from "@workspace/auth";
 import { getBaseURL } from "@workspace/orpc-client/lib/link";
 
 export const authClient: ReturnType<typeof createAuthClient> = createAuthClient(

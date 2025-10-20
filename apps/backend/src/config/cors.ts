@@ -11,8 +11,6 @@ const envOrigins = (process.env.CORS_ORIGIN || "")
   .map((s) => s.trim())
   .filter(Boolean);
 
-console.log("CORS_ORIGIN:", envOrigins);
-
 export const corsConfig = {
   origin: envOrigins,
   credentials: true,

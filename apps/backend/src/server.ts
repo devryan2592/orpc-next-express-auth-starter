@@ -1,7 +1,8 @@
 import express, { Express } from "express";
 import cors from "cors";
 
-import { auth, toNodeHandler } from "@workspace/auth";
+import { toNodeHandler } from "@workspace/auth";
+import auth from "@/auth";
 
 import { RPCHandler } from "@orpc/server/node";
 import { createORPCContext } from "@/context";
