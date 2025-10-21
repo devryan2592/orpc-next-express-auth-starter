@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { ORPCReactProvider } from "@workspace/orpc-client";
 import { Toaster } from "@workspace/ui/components/sonner";
+import { ThemeProvider } from "./theme-provider";
 
 interface AppProvidersProps {
   // Add your props here
@@ -9,10 +10,12 @@ interface AppProvidersProps {
 
 const AppProviders: FC<AppProvidersProps> = ({ children }) => {
   return (
-    <ORPCReactProvider>
-      {children}
-      <Toaster richColors />
-    </ORPCReactProvider>
+    <ThemeProvider>
+      <ORPCReactProvider>
+        {children}
+        <Toaster richColors />
+      </ORPCReactProvider>
+    </ThemeProvider>
   );
 };
 

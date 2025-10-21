@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -49,6 +50,7 @@ interface UpdatePasswordFormProps {
 }
 
 const UpdatePasswordForm = ({ token }: UpdatePasswordFormProps) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -75,6 +77,9 @@ const UpdatePasswordForm = ({ token }: UpdatePasswordFormProps) => {
         "Password updated successfully! You can now sign in with your new password."
       );
       form.reset();
+      
+      // Immediate redirect to login page after password update
+      router.push("/auth/login");
     } catch (error) {
       console.error("Password update error:", error);
       toast.error("An unexpected error occurred. Please try again.");

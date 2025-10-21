@@ -65,6 +65,11 @@ export function VerifyEmailForm() {
           toast.success(
             "Email verified successfully! You can now sign in to your account."
           );
+          
+          // Redirect to login page after successful verification with 3000ms delay
+          setTimeout(() => {
+            router.push("/auth/login");
+          }, 3000);
         }
       } catch (error) {
         setStatus(VerificationStatus.ERROR);

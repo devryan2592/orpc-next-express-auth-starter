@@ -53,7 +53,7 @@ const AppButton: FC<AppButtonProps> = ({
   const isIconRight = iconPosition === "right" || iconPosition === "end";
 
   // Custom height for medium size (h-10)
-  const customSizeClass = buttonSize === "medium" ? "h-10" : "";
+  const customSizeClass = buttonSize === "medium" ? "h-9" : "";
 
   // Width classes
   const widthClass = buttonWidth === "full" ? "w-full" : "";

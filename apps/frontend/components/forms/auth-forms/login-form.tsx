@@ -74,6 +74,11 @@ const LoginForm: FC<LoginFormProps> = ({ children }) => {
         });
       } else {
         toast.success("Successfully signed in! Welcome back.");
+
+        // Redirect to dashboard after 3000ms delay
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1000);
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
@@ -145,9 +150,9 @@ const LoginForm: FC<LoginFormProps> = ({ children }) => {
                 </FormItem>
               )}
             />
-            <AppButton 
-              type="submit" 
-              buttonWidth="full" 
+            <AppButton
+              type="submit"
+              buttonWidth="full"
               loading={isSubmitting}
               loadingText="Signing in..."
             >

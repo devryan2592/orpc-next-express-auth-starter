@@ -6,16 +6,17 @@ import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 
 interface PasswordInputProps {
-  // Add your props here
   disabled?: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  placeholder?: string;
 }
 
 const PasswordInput: FC<PasswordInputProps> = ({
   disabled,
   value,
   onChange,
+  placeholder = "Password",
 }) => {
   const id = useId();
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -28,7 +29,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
         <Input
           id={id}
           className="pe-9"
-          placeholder="Password"
+          placeholder={placeholder}
           type={isVisible ? "text" : "password"}
           disabled={disabled}
           value={value}
